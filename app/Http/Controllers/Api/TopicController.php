@@ -43,4 +43,24 @@ class TopicController extends Controller
             'topics' => Topic::withCount('votes')->find($topic->id),
         ];
     }
+
+    /**
+     * Add new vote to the topic
+     *
+     * @return Json
+     **/
+    public function storeTopicVote()
+    {
+        $validatedData = request()->validate([
+            'topic_id' => 'required|numeric|exists:topics,id'
+        ]);
+
+        $topic = Topic::withCount('votes')->find(request('topic_id'));
+
+        $topic->votes()->attach(request()->user()->id);
+
+        return [
+            'topics' => Topic::withCount('votes')->find(request('topic_id')),
+        ];
+    }
 }

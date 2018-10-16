@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('get-topics', 'TopicController@index');
     Route::post('create-new-topic', 'TopicController@store');
+    Route::post('vote-to-topic', 'TopicController@storeTopicVote');
 });
