@@ -22,6 +22,9 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+window.axios.defaults.headers.common['accept'] = 'application/json';
+window.axios.defaults.headers.common['Content-Type'] = 'application/json';
+
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
 window.VueRouter = VueRouter;
