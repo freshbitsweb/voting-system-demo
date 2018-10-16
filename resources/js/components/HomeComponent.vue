@@ -6,6 +6,24 @@
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
                     0 25px 50px 0 rgba(0, 0, 0, 0.1);
     }
+    .new-todo {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        font-size: 24px;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: 1.4em;
+        border: 0;
+        color: inherit;
+        padding: 6px;
+        border: 1px solid #999;
+        box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        outline: unset;
+    }
 
     .todoapp input::-webkit-input-placeholder {
         font-weight: 300;
