@@ -14,8 +14,10 @@ require('./bootstrap');
  */
 
 import LoginPage from './components/LoginComponent.vue';
+import HomePage from './components/HomeComponent.vue';
 
 const routes = [
+    { path: '/', component: HomePage },
     { path: '/login', component: LoginPage },
 ];
 
