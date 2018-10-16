@@ -8,7 +8,7 @@
                     </h4>
 
                     <div class="card-body">
-                        <form method="POST" action="">
+                        <form method="POST" v-on:submit.prevent="loginFormSubmit">
                             <div class="form-group row">
                                 <label for="email" class="col-sm-4 col-form-label text-md-right">
                                     E-Mail Address
@@ -18,7 +18,7 @@
                                     <input type="email"
                                         id="email"
                                         class="form-control"
-                                        name="email"
+                                        v-model="login.email"
                                         required
                                         autofocus
                                     >
@@ -34,12 +34,11 @@
                                     <input type="password"
                                         id="password"
                                         class="form-control"
-                                        name="password"
+                                        v-model="login.password"
                                         required
                                     >
                                 </div>
                             </div>
-
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
@@ -58,8 +57,33 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data: function () {
+            return {
+                login : {
+                    email: '',
+                    password: '',
+                }
+            }
+        },
+        methods: {
+            loginFormSubmit: function() {
+                var self = this;
+
+                axios.post('/oauth/token', {
+                    username: self.login.email,
+                    password: self.login.password,
+                    grant_type: 'password',
+                    client_id: process.env.MIX_PASSPORT_CLIENT_ID,
+                    client_secret: process.env.MIX_PASSPORT_CLIENT_SECRET,
+                    scope: '',
+                })
+                .then(function (response) {
+                    self.$root.userAccessToken = response.data.access_token;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
         }
     }
 </script>
