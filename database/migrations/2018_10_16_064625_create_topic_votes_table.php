@@ -13,13 +13,12 @@ class CreateTopicVotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('topic_votes', function (Blueprint $table) {
+        Schema::create('votes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('topic_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
 
             $table->foreign('topic_id')->references('id')->on('topics');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateTopicVotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topic_votes');
+        Schema::dropIfExists('votes');
     }
 }

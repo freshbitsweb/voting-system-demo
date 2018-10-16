@@ -18,7 +18,8 @@ class Topic extends Model
      */
     public function votes()
     {
-        return $this->belongsToMany('App\User', 'topic_votes');
+        return $this->belongsToMany('App\User', 'votes', 'topic_id', 'user_id');
+    }
 
     /**
      * Returns the list of topics
