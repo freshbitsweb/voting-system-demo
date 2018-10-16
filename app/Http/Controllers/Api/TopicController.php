@@ -14,7 +14,7 @@ class TopicController extends Controller
      **/
     public function index()
     {
-        $topics = Topic::all();
+        $topics = Topic::withCount('votes')->get();
 
         return [
             'topics' => $topics,
