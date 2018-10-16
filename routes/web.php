@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'HomeController@index')->name('front_home');
+
+Route::get('/{vueComponent?}', 'HomeController@index')->name('front_vue_component');
