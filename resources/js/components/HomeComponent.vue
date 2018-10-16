@@ -17,8 +17,25 @@
 
 <script>
     export default {
-        data: function () {
-            //
+        data: function() {
+            return {
+                //
+            };
         },
-    }
+
+        created: function() {
+            var self = this;
+            axios.get("/api/get-topics", {
+                headers: {
+                    Authorization: 'Bearer ' + self.$root.userAccessToken
+                }
+            })
+            .then(function(response) {
+                console.log(response);
+                self.$root.user = response.data.user;
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+    };
 </script>
