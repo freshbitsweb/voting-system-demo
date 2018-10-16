@@ -21,3 +21,8 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->afterCreating(App\User::class, function ($user, $faker) {
+    $topic = $user->topics()->save(factory(App\Topic::class)->make());
+    $topic->votes()->attach($user->id);
+});
