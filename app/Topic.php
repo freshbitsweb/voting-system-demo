@@ -11,7 +11,7 @@ class Topic extends Model
      *
      * @var array
      */
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'user_id'];
 
     /**
      * Get the votes for the user topic.
@@ -22,13 +22,21 @@ class Topic extends Model
     }
 
     /**
+     * Get the user for the topic.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
      * Returns the list of topics
      *
      * @return \Illuminate\Http\Collection
      **/
     public static function getList()
     {
-        $topics = Topic::with('votes')->orderBy('created_at', 'desc')->get();
+        $topics = Topic::with(['votes', 'user:id,name'])->withCount('votes')->orderBy('created_at', 'desc')->get();
 
         return $topics->transform(function ($topic) {
             $topic->isVoted = false;

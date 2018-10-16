@@ -69,7 +69,6 @@
         padding: 0;
     }
 
-
     .todo-list li label {
         word-break: break-all;
         padding: 15px 60px 15px 15px;
@@ -80,13 +79,27 @@
         transition: color 0.4s;
     }
 
+    .todo-list li .votes-counter {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        bottom: 0;
+        margin: auto 0;
+        margin-bottom: 12px;
+        height: 22px;
+        font-size: 15px;
     }
-
+    .todo-list li .topic-user-name {
+        font-size: 15px;
+    }
+    .todo-list li .add-vote-button.voted {
+        height: 27px;
+    }
     .todo-list li .add-vote-button {
         display: none;
         position: absolute;
         top: 0;
-        right: 15px;
+        right: 50px;
         bottom: 0;
         margin: auto 0;
         margin-bottom: 12px;
@@ -149,7 +162,12 @@
                                 <ul class="todo-list">
                                     <li class="todo" v-for="topic in topics">
                                         <div class="view">
-                                            <label>{{ topic.title }}</label>
+                                            <label>
+                                                {{ topic.title }} -
+                                                <span class="text-muted topic-user-name">
+                                                    {{ topic.user ? topic.user.name : 'Admin' }}
+                                                </span>
+                                            </label>
 
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
@@ -159,8 +177,12 @@
                                                 Add Vote
                                             </button>
 
+                                            <span class="badge badge-sm badge-secondary votes-counter">
+                                                {{ topic.votes_count }}
+                                            </span>
+
                                             <span
-                                                class="btn btn-sm add-vote-button btn-danger"
+                                                class="btn btn-sm add-vote-button voted btn-danger"
                                                 v-if="topic.isVoted != false"
                                             >
                                                 Voted
