@@ -28,7 +28,7 @@ class Topic extends Model
      **/
     public static function getList()
     {
-        $topics = Topic::with('votes')->get();
+        $topics = Topic::with('votes')->orderBy('created_at', 'desc')->get();
 
         return $topics->transform(function ($topic) {
             $topic->isVoted = false;

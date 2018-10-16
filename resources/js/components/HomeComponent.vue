@@ -218,7 +218,14 @@
                             <header class="header">
                                 <h1>List Of Topics</h1>
 
-                                <input autocomplete="off" placeholder="Add new topic?" class="new-todo" autofocus>
+                                <input
+                                    autocomplete="off"
+                                    placeholder="Add new topic?"
+                                    class="new-todo"
+                                    v-model="title"
+                                    v-on:keyup.13="createNewTopic()"
+                                    autofocus
+                                >
                             </header>
                             <section class="main">
                                 <ul class="todo-list">
@@ -257,6 +264,7 @@
         data: function() {
             return {
                 topics: [],
+                title: '',
             };
         },
 
@@ -266,9 +274,24 @@
 
                 axios.post("/api/vote-to-topic", {
                     topic_id: topicId,
-                })
-                .then(function(response) {
+                }).then(function(response) {
                     self.topics = response.data.topics;
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            },
+            createNewTopic: function () {
+                if (! this.title) {
+                    return;
+                }
+
+                var self = this;
+
+                axios.post("/api/create-new-topic", {
+                    title: self.title,
+                }).then(function(response) {
+                    self.topics = response.data.topics;
+                    self.title = '';
                 }).catch(function(error) {
                     console.log(error);
                 });
