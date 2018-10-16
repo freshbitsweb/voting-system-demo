@@ -79,6 +79,7 @@
                 })
                 .then(function (response) {
                     self.$root.userAccessToken = response.data.access_token;
+                    self.$root.$router.replace('/');
                 })
                 .catch(function (error) {
                     console.log(error);
