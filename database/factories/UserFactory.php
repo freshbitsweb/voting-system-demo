@@ -1,5 +1,7 @@
 <?php
 
+use App\User;
+use App\Topic;
 use Faker\Generator as Faker;
 
 /*
@@ -13,7 +15,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $name = $faker->name,
         'email' => snake_case($name) . '@laravellive.in',
@@ -22,7 +24,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(App\User::class, function ($user, $faker) {
-    $topic = $user->topics()->save(factory(App\Topic::class)->make());
+$factory->afterCreating(User::class, function ($user, $faker) {
+    $topic = $user->topics()->save(Topic::inRandomOrder()->first());
     $topic->votes()->attach($user->id);
 });
