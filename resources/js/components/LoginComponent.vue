@@ -69,20 +69,15 @@
             loginFormSubmit: function() {
                 var self = this;
 
-                axios.post('/oauth/token', {
-                    username: self.login.email,
+                axios.post('/login', {
+                    email: self.login.email,
                     password: self.login.password,
-                    grant_type: 'password',
-                    client_id: process.env.MIX_PASSPORT_CLIENT_ID,
-                    client_secret: process.env.MIX_PASSPORT_CLIENT_SECRET,
-                    scope: '',
                 })
                 .then(function (response) {
-                    self.$root.userAccessToken = response.data.access_token;
-                    self.$root.$router.replace('/');
+                    window.location = '/';
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.log(error.data);
                 });
             }
         }

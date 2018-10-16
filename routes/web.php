@@ -13,4 +13,6 @@
 
 Route::get('/', 'HomeController@index')->name('front_home');
 
+Route::post('/login', 'Auth\LoginController@login');
+
 Route::get('/{vueComponent?}', 'HomeController@index')->name('front_vue_component');
