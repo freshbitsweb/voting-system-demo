@@ -15,6 +15,7 @@
     "browser-sync": "^2.26.3",
     "browser-sync-webpack-plugin": "^2.0.1",
     "cross-env": "^5.1",
+    "dotenv": "^6.1.0",
     "laravel-mix": "^2.0",
     "vue": "^2.5.7",
     "vue-router": "^3.0.1"
