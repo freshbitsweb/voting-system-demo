@@ -169,7 +169,7 @@
 
                                 <input
                                     autocomplete="off"
-                                    placeholder="Add new topic?"
+                                    placeholder="Suggest new topic"
                                     class="new-todo"
                                     v-model="title"
                                     v-on:keyup.enter="createNewTopic()"
