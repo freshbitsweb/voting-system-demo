@@ -40,7 +40,9 @@
                     <ul class="navbar-nav ml-auto">
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Login</a>
+                                <router-link class="nav-link" to="/login">
+                                    Login
+                                </router-link>
                             </li>
                         @else
                             <li class="nav-item">
@@ -55,7 +57,7 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <router-view></router-view>
         </main>
     </div>
 
