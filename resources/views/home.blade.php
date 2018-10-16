@@ -20,9 +20,10 @@
     <div id="application">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <router-link class="navbar-brand" to="/">
                     {{ config('app.name', 'Laravel') }}
-                </a>
+                </router-link>
+
                 <button type="button"
                     class="navbar-toggler"
                     data-toggle="collapse"
