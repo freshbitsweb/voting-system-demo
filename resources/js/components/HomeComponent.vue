@@ -257,7 +257,6 @@
         data: function() {
             return {
                 topics: [],
-                user: [],
             };
         },
 
@@ -265,10 +264,8 @@
             addVoteToTopic: function (topicId) {
                 var self = this;
 
-                axios.post("/api/vote-to-topic", {topic_id: topicId,}, {
-                    headers: {
-                        Authorization: 'Bearer ' + self.$root.userAccessToken
-                    },
+                axios.post("/api/vote-to-topic", {
+                    topic_id: topicId,
                 })
                 .then(function(response) {
                     self.topics = response.data.topics;
@@ -279,14 +276,8 @@
         },
         created: function() {
             var self = this;
-            axios.get("/api/get-topics", {
-                headers: {
-                    Authorization: 'Bearer ' + self.$root.userAccessToken
-                }
-            })
+            axios.get("/api/get-topics")
             .then(function(response) {
-                console.log(response);
-                self.user = response.data.user;
                 self.topics = response.data.topics;
             }).catch(function(error) {
                 console.log(error);
