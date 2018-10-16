@@ -14,7 +14,16 @@ class TopicController extends Controller
      **/
     public function index()
     {
-        $topics = Topic::withCount('votes')->get();
+        $topics = Topic::getList();
+
+        $topics->transform(function ($topic) {
+            $topic->isVoted = false;
+            if ($topic->votes->contains('pivot.user_id', request()->user()->id)) {
+                $topic->isVoted = true;
+            }
+
+            return $topic;
+        });
 
         return [
             'topics' => $topics,
@@ -40,7 +49,7 @@ class TopicController extends Controller
         $topic->votes()->attach(request()->user()->id);
 
         return [
-            'topics' => Topic::withCount('votes')->find($topic->id),
+            'topics' => Topic::getList(),
         ];
     }
 
@@ -55,12 +64,12 @@ class TopicController extends Controller
             'topic_id' => 'required|numeric|exists:topics,id'
         ]);
 
-        $topic = Topic::withCount('votes')->find(request('topic_id'));
+        $topic = Topic::find(request('topic_id'));
 
         $topic->votes()->attach(request()->user()->id);
 
         return [
-            'topics' => Topic::withCount('votes')->find(request('topic_id')),
+            'topics' => Topic::getList(),
         ];
     }
 }

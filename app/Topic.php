@@ -19,5 +19,23 @@ class Topic extends Model
     public function votes()
     {
         return $this->belongsToMany('App\User', 'topic_votes');
+
+    /**
+     * Returns the list of topics
+     *
+     * @return \Illuminate\Http\Collection
+     **/
+    public static function getList()
+    {
+        $topics = Topic::with('votes')->get();
+
+        return $topics->transform(function ($topic) {
+            $topic->isVoted = false;
+            if ($topic->votes->contains('pivot.user_id', request()->user()->id)) {
+                $topic->isVoted = true;
+            }
+
+            return $topic;
+        });
     }
 }
