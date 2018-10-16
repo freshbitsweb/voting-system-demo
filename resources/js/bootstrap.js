@@ -23,4 +23,6 @@ if (token) {
 }
 
 window.Vue = require('vue');
-window.VueRouter = require('vue-router');
+import VueRouter from 'vue-router';
+window.VueRouter = VueRouter;
+Vue.use(VueRouter);
