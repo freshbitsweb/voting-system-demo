@@ -8,19 +8,16 @@
     }
 
     .todoapp input::-webkit-input-placeholder {
-        font-style: italic;
         font-weight: 300;
         color: #e6e6e6;
     }
 
     .todoapp input::-moz-placeholder {
-        font-style: italic;
         font-weight: 300;
         color: #e6e6e6;
     }
 
     .todoapp input::input-placeholder {
-        font-style: italic;
         font-weight: 300;
         color: #e6e6e6;
     }
@@ -38,25 +35,6 @@
         text-rendering: optimizeLegibility;
     }
 
-    .new-todo,
-    .edit {
-        position: relative;
-        margin: 0;
-        width: 100%;
-        font-size: 24px;
-        font-family: inherit;
-        font-weight: inherit;
-        line-height: 1.4em;
-        border: 0;
-        color: inherit;
-        padding: 6px;
-        border: 1px solid #999;
-        box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
-        box-sizing: border-box;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
     .new-todo {
         padding: 16px 16px 16px 60px;
         border: none;
@@ -68,31 +46,6 @@
         position: relative;
         z-index: 2;
         border-top: 1px solid #e6e6e6;
-    }
-
-    label[for='toggle-all'] {
-        display: none;
-    }
-
-    .toggle-all {
-        position: absolute;
-        top: -55px;
-        left: -12px;
-        width: 60px;
-        height: 34px;
-        text-align: center;
-        border: none; /* Mobile Safari */
-    }
-
-    .toggle-all:before {
-        content: '❯';
-        font-size: 22px;
-        color: #e6e6e6;
-        padding: 10px 27px 10px 27px;
-    }
-
-    .toggle-all:checked:before {
-        color: #737373;
     }
 
     .todo-list {
@@ -116,30 +69,6 @@
         padding: 0;
     }
 
-    .todo-list li.editing .edit {
-        display: block;
-        width: 506px;
-        padding: 12px 16px;
-        margin: 0 0 0 43px;
-    }
-
-    .todo-list li.editing .view {
-        display: none;
-    }
-
-    .todo-list li .toggle {
-        text-align: center;
-        width: 40px;
-        /* auto, since non-WebKit browsers doesn't support input styling */
-        height: auto;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        margin: auto 0;
-        border: none; /* Mobile Safari */
-        -webkit-appearance: none;
-        appearance: none;
-    }
 
     .todo-list li label {
         word-break: break-all;
@@ -151,9 +80,6 @@
         transition: color 0.4s;
     }
 
-    .todo-list li.completed label {
-        color: #d9d9d9;
-        text-decoration: line-through;
     }
 
     .todo-list li .add-vote-button {
@@ -197,14 +123,6 @@
     }
     .todo-list li:hover .add-vote-button {
         display: block;
-    }
-
-    .todo-list li .edit {
-        display: none;
-    }
-
-    .todo-list li.editing:last-child {
-        margin-bottom: -1px;
     }
 </style>
 
