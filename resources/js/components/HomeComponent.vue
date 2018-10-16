@@ -222,33 +222,24 @@
                             </header>
                             <section class="main">
                                 <ul class="todo-list">
-                                    <li class="todo">
+                                    <li class="todo" v-for="topic in topics">
                                         <div class="view">
-                                            <label>hiren</label>
+                                            <label>{{ topic.title }}</label>
 
-                                            <button class="btn btn-sm btn-outline-success add-vote-button">
+                                            <button
+                                                class="btn btn-sm add-vote-button btn-outline-success"
+                                                @click="addVoteToTopic(topic.id)"
+                                                v-if="topic.isVoted == false"
+                                            >
                                                 Add Vote
                                             </button>
-                                        </div>
-                                    </li>
 
-                                    <li class="todo">
-                                        <div class="view">
-                                            <label>dsfmklm</label>
-
-                                            <button class="btn btn-sm btn-outline-danger add-vote-button" disabled>
+                                            <span
+                                                class="btn btn-sm add-vote-button btn-danger"
+                                                v-if="topic.isVoted != false"
+                                            >
                                                 Voted
-                                            </button>
-                                        </div>
-                                    </li>
-
-                                    <li class="todo">
-                                        <div class="view">
-                                            <label>df;gl;</label>
-
-                                            <button class="btn btn-sm btn-outline-success add-vote-button">
-                                                Add Vote
-                                            </button>
+                                            </span>
                                         </div>
                                     </li>
                                 </ul>
@@ -265,10 +256,27 @@
     export default {
         data: function() {
             return {
-                //
+                topics: [],
+                user: [],
             };
         },
 
+        methods: {
+            addVoteToTopic: function (topicId) {
+                var self = this;
+
+                axios.post("/api/vote-to-topic", {topic_id: topicId,}, {
+                    headers: {
+                        Authorization: 'Bearer ' + self.$root.userAccessToken
+                    },
+                })
+                .then(function(response) {
+                    self.topics = response.data.topics;
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            }
+        },
         created: function() {
             var self = this;
             axios.get("/api/get-topics", {
@@ -278,7 +286,8 @@
             })
             .then(function(response) {
                 console.log(response);
-                self.$root.user = response.data.user;
+                self.user = response.data.user;
+                self.topics = response.data.topics;
             }).catch(function(error) {
                 console.log(error);
             });
