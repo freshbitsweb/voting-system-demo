@@ -165,14 +165,14 @@
                     <div class="card-body">
                         <section class="todoapp">
                             <header class="header">
-                                <h1>List Of Topics</h1>
+                                <h1>List of Topics</h1>
 
                                 <input
                                     autocomplete="off"
                                     placeholder="Add new topic?"
                                     class="new-todo"
                                     v-model="title"
-                                    v-on:keyup.13="createNewTopic()"
+                                    v-on:keyup.enter="createNewTopic()"
                                     autofocus
                                 >
                             </header>
