@@ -198,13 +198,6 @@
                                             <span class="badge badge-sm badge-secondary votes-counter">
                                                 {{ topic.votes_count }}
                                             </span>
-
-                                            <span
-                                                class="btn btn-sm add-vote-button voted btn-danger"
-                                                v-if="topic.isVoted != false"
-                                            >
-                                                Voted
-                                            </span>
                                         </div>
                                     </li>
                                 </ul>
