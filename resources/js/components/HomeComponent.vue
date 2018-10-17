@@ -13,7 +13,6 @@
                                 <ul class="todo-list">
                                     <li class="todo"
                                         v-for="(topic, index) in sortedTopics"
-                                        v-bind:class="{ voted: topic.isVoted != false}"
                                     >
                                         <div class="view">
                                             <label>
@@ -26,7 +25,6 @@
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
                                                 @click="addVoteToTopic(topic.id, index)"
-                                                v-if="topic.isVoted == false"
                                             >
                                                 Vote
                                             </button>
@@ -74,7 +72,6 @@
                     topic_id: topicId,
                 }).then(function(response) {
                     var topic = response.data.topic;
-                    topic.isVoted = true;
 
                     self.topics.splice(index, 1, topic);
                 }).catch(function(error) {
@@ -93,7 +90,6 @@
                     title: self.title,
                 }).then(function(response) {
                     var topic = response.data.topic;
-                    topic.isVoted = true;
                     self.topics.push(topic);
                     self.title = '';
                 }).catch(function(error) {
