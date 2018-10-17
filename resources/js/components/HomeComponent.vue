@@ -8,13 +8,13 @@
     }
     .new-todo {
         position: relative;
-        margin: 0;
+        margin-top: 10%;
         width: 100%;
         font-size: 24px;
         font-family: inherit;
         font-weight: inherit;
         line-height: 1.4em;
-        border: 0;
+        border: 1px solid #ededed !important;
         color: inherit;
         padding: 6px;
         border: 1px solid #999;
@@ -103,15 +103,15 @@
         right: 15px;
         bottom: 0;
         margin: auto 0;
-        margin-bottom: 12px;
-        height: 22px;
-        font-size: 15px;
+        margin-bottom: 14px;
+        height: 28px;
+        font-size: 20px;
     }
     .todo-list li .topic-user-name {
         font-size: 15px;
     }
-    .todo-list li .add-vote-button.voted {
-        height: 27px;
+    .todo-list .voted {
+        background-color: #00800029;
     }
     .todo-list li .add-vote-button {
         display: none;
@@ -120,7 +120,7 @@
         right: 50px;
         bottom: 0;
         margin: auto 0;
-        margin-bottom: 12px;
+        margin-bottom: 13px;
         border-radius: 80px;
         height: 32px;
     }
@@ -166,19 +166,14 @@
                         <section class="todoapp">
                             <header class="header">
                                 <h1>List of Topics</h1>
-
-                                <input
-                                    autocomplete="off"
-                                    placeholder="Suggest new topic"
-                                    class="new-todo"
-                                    v-model="title"
-                                    v-on:keyup.enter="createNewTopic()"
-                                    autofocus
-                                >
                             </header>
+
                             <section class="main">
                                 <ul class="todo-list">
-                                    <li class="todo" v-for="topic in topics">
+                                    <li class="todo"
+                                        v-for="topic in topics"
+                                        v-bind:class="{ voted: topic.isVoted != false}"
+                                    >
                                         <div class="view">
                                             <label>
                                                 {{ topic.title }} -
@@ -198,17 +193,21 @@
                                             <span class="badge badge-sm badge-secondary votes-counter">
                                                 {{ topic.votes_count }}
                                             </span>
-
-                                            <span
-                                                class="btn btn-sm add-vote-button voted btn-danger"
-                                                v-if="topic.isVoted != false"
-                                            >
-                                                Voted
-                                            </span>
                                         </div>
                                     </li>
                                 </ul>
                             </section>
+
+                            <header class="header">
+                                <input
+                                    autocomplete="off"
+                                    placeholder="Add new topic?"
+                                    class="new-todo"
+                                    v-model="title"
+                                    v-on:keyup.13="createNewTopic()"
+                                    autofocus
+                                >
+                            </header>
                         </section>
                     </div>
                 </div>

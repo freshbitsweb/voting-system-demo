@@ -36,7 +36,11 @@ class Topic extends Model
      **/
     public static function getList()
     {
-        $topics = Topic::with(['votes', 'user:id,name'])->withCount('votes')->orderBy('created_at', 'desc')->get();
+        $topics = Topic::with(['votes', 'user:id,name'])
+            ->withCount('votes')
+            ->orderBy('votes_count', 'desc')
+            ->get()
+        ;
 
         return $topics->transform(function ($topic) {
             $topic->isVoted = false;
