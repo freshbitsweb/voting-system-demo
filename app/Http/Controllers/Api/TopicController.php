@@ -16,15 +16,6 @@ class TopicController extends Controller
     {
         $topics = Topic::getList();
 
-        $topics->transform(function ($topic) {
-            $topic->isVoted = false;
-            if ($topic->votes->contains('pivot.user_id', request()->user()->id)) {
-                $topic->isVoted = true;
-            }
-
-            return $topic;
-        });
-
         return [
             'topics' => $topics,
             'user' => request()->user()

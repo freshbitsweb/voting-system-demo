@@ -13,8 +13,12 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import LoginPage from './components/LoginComponent.vue';
 import HomePage from './components/HomeComponent.vue';
+
+Vue.use(VueRouter);
 
 const routes = [
     { path: '/', component: HomePage, name: 'front_home_page'  },

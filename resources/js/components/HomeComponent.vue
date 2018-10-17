@@ -1,3 +1,114 @@
+<template>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <section class="todoapp">
+                            <header class="header">
+                                <h1>List of Topics</h1>
+                            </header>
+
+                            <section class="main">
+                                <ul class="todo-list">
+                                    <li class="todo"
+                                        v-for="topic in topics"
+                                        v-bind:class="{ voted: topic.isVoted != false}"
+                                    >
+                                        <div class="view">
+                                            <label>
+                                                {{ topic.title }} -
+                                                <span class="text-muted topic-user-name">
+                                                    {{ topic.user ? topic.user.name : 'Admin' }}
+                                                </span>
+                                            </label>
+
+                                            <button
+                                                class="btn btn-sm add-vote-button btn-outline-success"
+                                                @click="addVoteToTopic(topic.id)"
+                                                v-if="topic.isVoted == false"
+                                            >
+                                                Vote
+                                            </button>
+
+                                            <span class="badge badge-sm badge-secondary votes-counter">
+                                                {{ topic.votes_count }}
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+
+                            <header class="header">
+                                <input
+                                    autocomplete="off"
+                                    placeholder="Add new topic?"
+                                    class="new-todo"
+                                    v-model="title"
+                                    v-on:keyup.enter="createNewTopic()"
+                                    autofocus
+                                >
+                            </header>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data: function() {
+            return {
+                topics: [],
+                title: '',
+            };
+        },
+
+        methods: {
+            addVoteToTopic: function (topicId) {
+                var self = this;
+
+                axios.post("/api/vote-to-topic", {
+                    topic_id: topicId,
+                }).then(function(response) {
+                    self.topics = response.data.topics;
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            },
+
+            createNewTopic: function () {
+                if (! this.title) {
+                    return;
+                }
+
+                var self = this;
+
+                axios.post("/api/create-new-topic", {
+                    title: self.title,
+                }).then(function(response) {
+                    self.topics = response.data.topics;
+                    self.title = '';
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            }
+        },
+
+        created: function() {
+            var self = this;
+            axios.get("/api/get-topics")
+            .then(function(response) {
+                self.topics = response.data.topics;
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+    };
+</script>
+
 <style>
     .todoapp {
         background: #fff;
@@ -156,119 +267,3 @@
         display: block;
     }
 </style>
-
-<template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <section class="todoapp">
-                            <header class="header">
-                                <h1>List Of Topics</h1>
-                            </header>
-
-                            <section class="main">
-                                <ul class="todo-list">
-                                    <li class="todo"
-                                        v-for="topic in topics"
-                                        v-bind:class="{ voted: topic.isVoted != false}"
-                                    >
-                                        <div class="view">
-                                            <label>
-                                                {{ topic.title }} -
-                                                <span class="text-muted topic-user-name">
-                                                    {{ topic.user ? topic.user.name : 'Admin' }}
-                                                </span>
-                                            </label>
-
-                                            <button
-                                                class="btn btn-sm add-vote-button btn-outline-success"
-                                                @click="addVoteToTopic(topic.id)"
-                                                v-if="topic.isVoted == false"
-                                            >
-                                                Add Vote
-                                            </button>
-
-                                            <span class="badge badge-sm badge-secondary votes-counter">
-                                                {{ topic.votes_count }}
-                                            </span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </section>
-
-                            <header class="header">
-                                <input
-                                    autocomplete="off"
-                                    placeholder="Add new topic?"
-                                    class="new-todo"
-                                    v-model="title"
-                                    v-on:keyup.13="createNewTopic()"
-                                    autofocus
-                                >
-                            </header>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
-<script>
-    export default {
-        data: function() {
-            return {
-                topics: [],
-                title: '',
-            };
-        },
-
-        methods: {
-            addVoteToTopic: function (topicId) {
-                var self = this;
-
-                axios.post("/api/vote-to-topic", {
-                    topic_id: topicId,
-                }).then(function(response) {
-                    self.topics = response.data.topics;
-                }).catch(function(error) {
-                    console.log(error);
-                });
-            },
-            createNewTopic: function () {
-                if (! this.title) {
-                    return;
-                }
-
-                var self = this;
-
-                axios.post("/api/create-new-topic", {
-                    title: self.title,
-                }).then(function(response) {
-                    self.topics = response.data.topics;
-                    self.title = '';
-                }).catch(function(error) {
-                    console.log(error);
-                });
-            }
-        },
-
-        created: function() {
-            var self = this;
-
-            if (! isLoggedIn) {
-                self.$root.$router.push({ path: 'login' });
-                return;
-            }
-
-            axios.get("/api/get-topics")
-            .then(function(response) {
-                self.topics = response.data.topics;
-            }).catch(function(error) {
-                console.log(error);
-            });
-        }
-    };
-</script>
