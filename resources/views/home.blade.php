@@ -63,6 +63,13 @@
     </div>
 
     <!-- Scripts -->
+    <script>
+        @guest
+            var isLoggedIn = false;
+        @else
+            var isLoggedIn = true;
+        @endguest
+    </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
