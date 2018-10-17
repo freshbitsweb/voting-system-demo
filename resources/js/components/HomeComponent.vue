@@ -204,7 +204,7 @@
                                     placeholder="Add new topic?"
                                     class="new-todo"
                                     v-model="title"
-                                    v-on:keyup.13="createNewTopic()"
+                                    v-on:keyup.enter="createNewTopic()"
                                     autofocus
                                 >
                             </header>
