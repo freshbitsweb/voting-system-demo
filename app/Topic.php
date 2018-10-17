@@ -36,19 +36,6 @@ class Topic extends Model
      **/
     public static function getList()
     {
-        $topics = Topic::with(['votes', 'user:id,name'])
-            ->withCount('votes')
-            ->orderBy('votes_count', 'desc')
-            ->get()
-        ;
-
-        return $topics->transform(function ($topic) {
-            $topic->isVoted = false;
-            if ($topic->votes->contains('pivot.user_id', request()->user()->id)) {
-                $topic->isVoted = true;
-            }
-
-            return $topic;
-        });
+        return Topic::with(['votes', 'user:id,name'])->get();
     }
 }

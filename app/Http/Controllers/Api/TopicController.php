@@ -40,7 +40,7 @@ class TopicController extends Controller
         $topic->votes()->attach(request()->user()->id);
 
         return [
-            'topics' => Topic::getList(),
+            'topic' => $topic->load('votes', 'user:id,name'),
         ];
     }
 
@@ -55,12 +55,12 @@ class TopicController extends Controller
             'topic_id' => 'required|numeric|exists:topics,id'
         ]);
 
-        $topic = Topic::find(request('topic_id'));
+        $topic = Topic::with('user:id,name')->find(request('topic_id'));
 
         $topic->votes()->attach(request()->user()->id);
 
         return [
-            'topics' => Topic::getList(),
+            'topic' => $topic->load('votes'),
         ];
     }
 }

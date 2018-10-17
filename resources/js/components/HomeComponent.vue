@@ -12,8 +12,8 @@
                             <section class="main">
                                 <ul class="todo-list">
                                     <li class="todo"
-                                        v-for="topic in topics"
-                                        v-bind:class="{ voted: topic.isVoted != false}"
+                                        v-for="(topic, index) in sortedTopics"
+                                        v-bind:class="{ voted: isVoted(topic.votes) }"
                                     >
                                         <div class="view">
                                             <label>
@@ -25,14 +25,14 @@
 
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
-                                                @click="addVoteToTopic(topic.id)"
-                                                v-if="topic.isVoted == false"
+                                                @click="addVoteToTopic(topic.id, index)"
+                                                v-if="! isVoted(topic.votes)"
                                             >
                                                 Vote
                                             </button>
 
                                             <span class="badge badge-sm badge-secondary votes-counter">
-                                                {{ topic.votes_count }}
+                                                {{ topic.votes.length }}
                                             </span>
                                         </div>
                                     </li>
@@ -67,13 +67,21 @@
         },
 
         methods: {
-            addVoteToTopic: function (topicId) {
+            isVoted: function (votes) {
+                return votes.filter(function(vote) {
+                    return vote.id == loggedInUserId;
+                }).length;
+            },
+
+            addVoteToTopic: function (topicId, index) {
                 var self = this;
 
                 axios.post("/api/vote-to-topic", {
                     topic_id: topicId,
                 }).then(function(response) {
-                    self.topics = response.data.topics;
+                    var topic = response.data.topic;
+
+                    self.topics.splice(index, 1, topic);
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -89,7 +97,8 @@
                 axios.post("/api/create-new-topic", {
                     title: self.title,
                 }).then(function(response) {
-                    self.topics = response.data.topics;
+                    var topic = response.data.topic;
+                    self.topics.push(topic);
                     self.title = '';
                 }).catch(function(error) {
                     console.log(error);
@@ -105,6 +114,14 @@
             }).catch(function(error) {
                 console.log(error);
             });
+        },
+
+        computed: {
+            sortedTopics: function() {
+                return this.topics.sort(function(firstTopic, secondTopic) {
+                    return secondTopic.votes.length - firstTopic.votes.length;
+                });
+            }
         }
     };
 </script>

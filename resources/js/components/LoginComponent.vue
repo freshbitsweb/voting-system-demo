@@ -80,6 +80,13 @@
                     console.log(error.data);
                 });
             }
+        },
+
+        created: function() {
+            if (isLoggedIn) {
+                this.$root.$router.push({ path: '/' });
+                return;
+            }
         }
     }
 </script>
