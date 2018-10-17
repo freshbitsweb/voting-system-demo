@@ -12,7 +12,7 @@
                             <section class="main">
                                 <ul class="todo-list">
                                     <li class="todo"
-                                        v-for="(topic, index) in topics"
+                                        v-for="(topic, index) in sortedTopics"
                                         v-bind:class="{ voted: topic.isVoted != false}"
                                     >
                                         <div class="view">
@@ -32,7 +32,7 @@
                                             </button>
 
                                             <span class="badge badge-sm badge-secondary votes-counter">
-                                                {{ topic.votes_count }}
+                                                {{ topic.votes.length }}
                                             </span>
                                         </div>
                                     </li>
@@ -75,7 +75,6 @@
                 }).then(function(response) {
                     var topic = response.data.topic;
                     topic.isVoted = true;
-                    topic.votes_count = topic.votes.length;
 
                     self.topics.splice(index, 1, topic);
                 }).catch(function(error) {
@@ -95,7 +94,6 @@
                 }).then(function(response) {
                     var topic = response.data.topic;
                     topic.isVoted = true;
-                    topic.votes_count = topic.votes.length;
                     self.topics.push(topic);
                     self.title = '';
                 }).catch(function(error) {
@@ -112,6 +110,14 @@
             }).catch(function(error) {
                 console.log(error);
             });
+        },
+
+        computed: {
+            sortedTopics: function() {
+                return this.topics.sort(function(firstTopic, secondTopic) {
+                    return secondTopic.votes.length - firstTopic.votes.length;
+                });
+            }
         }
     };
 </script>
