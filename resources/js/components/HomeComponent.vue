@@ -110,8 +110,8 @@
     .todo-list li .topic-user-name {
         font-size: 15px;
     }
-    .todo-list li .add-vote-button.voted {
-        height: 27px;
+    .todo-list .voted {
+        background-color: #0080003b;
     }
     .todo-list li .add-vote-button {
         display: none;
@@ -178,7 +178,10 @@
                             </header>
                             <section class="main">
                                 <ul class="todo-list">
-                                    <li class="todo" v-for="topic in topics">
+                                    <li class="todo"
+                                        v-for="topic in topics"
+                                        v-bind:class="{ voted: topic.isVoted != false}"
+                                    >
                                         <div class="view">
                                             <label>
                                                 {{ topic.title }} -
