@@ -78,6 +78,7 @@
                     console.log(error);
                 });
             },
+
             createNewTopic: function () {
                 if (! this.title) {
                     return;
@@ -95,6 +96,7 @@
                 });
             }
         },
+
         created: function() {
             var self = this;
             axios.get("/api/get-topics")
