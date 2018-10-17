@@ -13,6 +13,7 @@
                                 <ul class="todo-list">
                                     <li class="todo"
                                         v-for="(topic, index) in sortedTopics"
+                                        v-bind:class="{ voted: isVoted(topic.votes) }"
                                     >
                                         <div class="view">
                                             <label>
@@ -25,6 +26,7 @@
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
                                                 @click="addVoteToTopic(topic.id, index)"
+                                                v-if="! isVoted(topic.votes)"
                                             >
                                                 Vote
                                             </button>
@@ -65,6 +67,12 @@
         },
 
         methods: {
+            isVoted: function (votes) {
+                return votes.filter(function(vote) {
+                    return vote.id == loggedInUserId;
+                }).length;
+            },
+
             addVoteToTopic: function (topicId, index) {
                 var self = this;
 

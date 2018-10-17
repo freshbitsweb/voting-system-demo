@@ -68,6 +68,7 @@
             var isLoggedIn = false;
         @else
             var isLoggedIn = true;
+            var loggedInUserId = {{ auth()->user()->id }};
         @endguest
     </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
