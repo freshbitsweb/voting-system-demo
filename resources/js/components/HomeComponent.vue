@@ -187,7 +187,7 @@
                                                 @click="addVoteToTopic(topic.id)"
                                                 v-if="topic.isVoted == false"
                                             >
-                                                Add Vote
+                                                Vote
                                             </button>
 
                                             <span class="badge badge-sm badge-secondary votes-counter">
