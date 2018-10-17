@@ -12,7 +12,7 @@
                             <section class="main">
                                 <ul class="todo-list">
                                     <li class="todo"
-                                        v-for="topic in topics"
+                                        v-for="(topic, index) in topics"
                                         v-bind:class="{ voted: topic.isVoted != false}"
                                     >
                                         <div class="view">
@@ -25,7 +25,7 @@
 
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
-                                                @click="addVoteToTopic(topic.id)"
+                                                @click="addVoteToTopic(topic.id, index)"
                                                 v-if="topic.isVoted == false"
                                             >
                                                 Vote
@@ -67,13 +67,17 @@
         },
 
         methods: {
-            addVoteToTopic: function (topicId) {
+            addVoteToTopic: function (topicId, index) {
                 var self = this;
 
                 axios.post("/api/vote-to-topic", {
                     topic_id: topicId,
                 }).then(function(response) {
-                    self.topics = response.data.topics;
+                    var topic = response.data.topic;
+                    topic.isVoted = true;
+                    topic.votes_count = topic.votes.length;
+
+                    self.topics.splice(index, 1, topic);
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -89,7 +93,10 @@
                 axios.post("/api/create-new-topic", {
                     title: self.title,
                 }).then(function(response) {
-                    self.topics = response.data.topics;
+                    var topic = response.data.topic;
+                    topic.isVoted = true;
+                    topic.votes_count = topic.votes.length;
+                    self.topics.push(topic);
                     self.title = '';
                 }).catch(function(error) {
                     console.log(error);
