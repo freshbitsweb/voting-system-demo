@@ -27,5 +27,4 @@ window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
-window.VueRouter = VueRouter;
 Vue.use(VueRouter);
