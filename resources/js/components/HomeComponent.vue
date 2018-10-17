@@ -103,9 +103,9 @@
         right: 15px;
         bottom: 0;
         margin: auto 0;
-        margin-bottom: 12px;
-        height: 22px;
-        font-size: 15px;
+        margin-bottom: 14px;
+        height: 28px;
+        font-size: 20px;
     }
     .todo-list li .topic-user-name {
         font-size: 15px;
@@ -120,7 +120,7 @@
         right: 50px;
         bottom: 0;
         margin: auto 0;
-        margin-bottom: 12px;
+        margin-bottom: 13px;
         border-radius: 80px;
         height: 32px;
     }
