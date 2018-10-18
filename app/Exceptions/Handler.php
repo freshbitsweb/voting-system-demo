@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -46,6 +47,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ValidationException) {
+            $errorText = '';
+            $errors = $exception->errors();
+            foreach ($errors as $error) {
+                $errorText .= $error[0] . ' ';
+            }
+
+            return apiFailureResponse($errorText, $data = [], $statusCode = $exception->status);
+        }
+
         return parent::render($request, $exception);
     }
 }
