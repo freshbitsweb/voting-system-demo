@@ -38,7 +38,7 @@ class ApiAuthTest extends TestCase
     public function endpoint_can_be_accessed_with_a_valid_token()
     {
         Artisan::call('passport:client', [
-            '--personal' => 1, '--name' => 'Voting System'
+            '--password' => 1, '--name' => 'Voting System'
         ]);
 
         $user = factory(User::class)->create();

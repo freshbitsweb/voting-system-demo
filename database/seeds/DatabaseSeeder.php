@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,10 @@ class DatabaseSeeder extends Seeder
         }
 
         factory(App\User::class, 10)->create();
+
+        Artisan::call('passport:client', [
+            '--password' => 1, '--name' => 'Voting System'
+        ]);
     }
 
     /**
