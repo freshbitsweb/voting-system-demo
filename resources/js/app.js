@@ -25,7 +25,6 @@ const routes = [
     { path: '/login', component: LoginPage, name: 'front_login_page' },
 ];
 
-
 const router = new VueRouter({
     mode: 'history',
     base: '/',
