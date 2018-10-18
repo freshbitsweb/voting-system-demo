@@ -27,7 +27,8 @@ Vue.use(Toasted, {
         onClick : (e, toastObject) => {
             toastObject.goAway(0);
         }
-    }
+    },
+    duration: 3000
 });
 
 const routes = [
