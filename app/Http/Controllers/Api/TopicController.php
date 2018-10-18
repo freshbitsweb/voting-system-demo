@@ -30,7 +30,7 @@ class TopicController extends Controller
     public function store()
     {
         $validatedData = request()->validate([
-            'title' => 'required|string|max:255'
+            'title' => 'required|string|max:255|unique:topics,title'
         ]);
 
         $validatedData['user_id'] = request()->user()->id;
