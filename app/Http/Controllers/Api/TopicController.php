@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Topic;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TopicResource;
 
 class TopicController extends Controller
 {
@@ -17,7 +18,7 @@ class TopicController extends Controller
         $topics = Topic::getList();
 
         return [
-            'topics' => $topics,
+            'topics' => TopicResource::collection($topics),
         ];
     }
 
