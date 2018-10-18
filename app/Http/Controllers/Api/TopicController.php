@@ -18,7 +18,6 @@ class TopicController extends Controller
 
         return [
             'topics' => $topics,
-            'user' => request()->user()
         ];
     }
 
