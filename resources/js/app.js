@@ -27,8 +27,7 @@ Vue.use(Toasted, {
         onClick : (e, toastObject) => {
             toastObject.goAway(0);
         }
-    },
-    className: 'bg-success'
+    }
 });
 
 const routes = [

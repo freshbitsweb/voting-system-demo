@@ -80,7 +80,7 @@
                     var topic = response.data.data.topic;
 
                     self.topics.splice(index, 1, topic);
-                    self.$toasted.show('Topic voted successfully.');
+                    self.$toasted.success('Topic voted successfully.');
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -100,7 +100,7 @@
                     self.topics.push(topic);
                     self.title = '';
 
-                    self.$toasted.show('New topic added successfully.');
+                    self.$toasted.success('New topic added successfully.');
                 }).catch(function(error) {
                     console.log(error);
                 });
