@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
                 'title' => $topic
             ]);
         }
+
         factory(App\User::class, 10)->create();
     }
 

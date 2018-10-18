@@ -4,7 +4,6 @@ namespace App;
 
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -30,7 +29,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the topics of the user.
+     * Get the topics that the user has votes for.
      */
     public function topics()
     {
