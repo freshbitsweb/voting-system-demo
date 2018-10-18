@@ -15,7 +15,7 @@ class TopicController extends Controller
      **/
     public function index()
     {
-        $topics = Topic::getList();
+        $topics = Topic::with(['votes', 'user:id,name'])->get();
 
         return [
             'topics' => TopicResource::collection($topics),

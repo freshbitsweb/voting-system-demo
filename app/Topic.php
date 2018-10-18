@@ -28,14 +28,4 @@ class Topic extends Model
     {
         return $this->belongsTo('App\User');
     }
-
-    /**
-     * Returns the list of topics
-     *
-     * @return \Illuminate\Http\Collection
-     **/
-    public static function getList()
-    {
-        return Topic::with(['votes', 'user:id,name'])->get();
-    }
 }
