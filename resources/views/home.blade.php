@@ -15,6 +15,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .close-button-link {
+            text-decoration: none !important;
+            color: white !important;
+        }
+    </style>
 </head>
 <body>
     <div id="application">

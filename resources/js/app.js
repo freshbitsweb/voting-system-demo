@@ -15,16 +15,26 @@ require('./bootstrap');
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Toasted from 'vue-toasted';
 import LoginPage from './components/LoginComponent.vue';
 import HomePage from './components/HomeComponent.vue';
 
 Vue.use(VueRouter);
+Vue.use(Toasted, {
+    action : {
+        text : 'Close',
+        class: 'close-button-link',
+        onClick : (e, toastObject) => {
+            toastObject.goAway(0);
+        }
+    },
+    className: 'bg-success'
+});
 
 const routes = [
-    { path: '/', component: HomePage, name: 'front_home_page'  },
+    { path: '/', component: HomePage, name: 'front_home_page' },
     { path: '/login', component: LoginPage, name: 'front_login_page' },
 ];
-
 
 const router = new VueRouter({
     mode: 'history',

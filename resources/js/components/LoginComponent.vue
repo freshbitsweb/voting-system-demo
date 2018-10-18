@@ -72,11 +72,9 @@
                 axios.post('/login', {
                     email: self.login.email,
                     password: self.login.password,
-                })
-                .then(function (response) {
+                }).then(function (response) {
                     window.location = '/';
-                })
-                .catch(function (error) {
+                }).catch(function (error) {
                     console.log(error.data);
                 });
             }
