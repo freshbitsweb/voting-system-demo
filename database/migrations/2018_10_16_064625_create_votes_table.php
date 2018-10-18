@@ -14,7 +14,6 @@ class CreateVotesTable extends Migration
     public function up()
     {
         Schema::create('votes', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('topic_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
 
