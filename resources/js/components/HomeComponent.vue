@@ -108,6 +108,12 @@
 
         created: function() {
             var self = this;
+
+            if (! isLoggedIn) {
+                self.$root.$router.push({ path: 'login' });
+                return;
+            }
+
             axios.get("/api/get-topics")
             .then(function(response) {
                 self.topics = response.data.data.topics;

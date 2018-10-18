@@ -26,5 +26,8 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->afterCreating(User::class, function ($user, $faker) {
     $topic = Topic::inRandomOrder()->first();
-    $topic->votes()->attach($user->id);
+
+    if ($topic) {
+        $topic->votes()->attach($user->id);
+    }
 });
