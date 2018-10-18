@@ -80,9 +80,15 @@
                     var topic = response.data.data.topic;
 
                     self.topics.splice(index, 1, topic);
-                    self.$toasted.success('Topic voted successfully.');
+
+                    self.$toasted.success(response.data.message);
                 }).catch(function(error) {
-                    console.log(error);
+                    if (error.response.data.message) {
+                        self.$toasted.error(error.response.data.message);
+                        return;
+                    }
+
+                    self.$toasted.error('Something went wrong!');
                 });
             },
 
@@ -100,9 +106,14 @@
                     self.topics.push(topic);
                     self.title = '';
 
-                    self.$toasted.success('New topic added successfully.');
+                    self.$toasted.success(response.data.message);
                 }).catch(function(error) {
-                    console.log(error);
+                    if (error.response.data.message) {
+                        self.$toasted.error(error.response.data.message);
+                        return;
+                    }
+
+                    self.$toasted.error('Something went wrong!');
                 });
             }
         },
