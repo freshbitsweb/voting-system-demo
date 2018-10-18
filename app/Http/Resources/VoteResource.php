@@ -16,10 +16,6 @@ class VoteResource extends JsonResource
     {
         return [
             'user_id' => $this->id,
-            'user_name' => $this->name,
-            'user_email' => $this->email,
-            'pivot_user_id' => $this->pivot->user_id,
-            'pivot_topic_id' => $this->pivot->topic_id,
         ];
     }
 }

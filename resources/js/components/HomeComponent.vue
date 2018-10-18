@@ -25,7 +25,7 @@
 
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
-                                                @click="addVoteToTopic(topic.topic_id, index)"
+                                                @click="addVoteToTopic(topic.id, index)"
                                                 v-if="! isVoted(topic.votes)"
                                             >
                                                 Vote
