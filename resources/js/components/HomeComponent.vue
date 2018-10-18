@@ -142,7 +142,7 @@
     }
     .new-todo {
         position: relative;
-        margin-top: 10%;
+        margin: 0;
         width: 100%;
         font-size: 24px;
         font-family: inherit;
@@ -157,6 +157,10 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         outline: unset;
+        padding: 16px 16px 16px 60px;
+        border: none;
+        background: rgba(0, 0, 0, 0.003);
+        box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
     }
 
     .todoapp input::-webkit-input-placeholder {
@@ -185,13 +189,6 @@
         -webkit-text-rendering: optimizeLegibility;
         -moz-text-rendering: optimizeLegibility;
         text-rendering: optimizeLegibility;
-    }
-
-    .new-todo {
-        padding: 16px 16px 16px 60px;
-        border: none;
-        background: rgba(0, 0, 0, 0.003);
-        box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
     }
 
     .main {
