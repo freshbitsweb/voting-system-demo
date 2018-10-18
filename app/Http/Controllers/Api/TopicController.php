@@ -29,13 +29,13 @@ class TopicController extends Controller
      **/
     public function store()
     {
-        $validatedData = request()->validate([
+        $data = request()->validate([
             'title' => 'required|string|max:255|unique:topics,title'
         ]);
 
-        $validatedData['user_id'] = request()->user()->id;
+        $data['user_id'] = request()->user()->id;
 
-        $topic = Topic::create($validatedData);
+        $topic = Topic::create($data);
 
         $topic->votes()->attach(request()->user()->id);
 
@@ -51,7 +51,7 @@ class TopicController extends Controller
      **/
     public function voteForTopic()
     {
-        $validatedData = request()->validate([
+        request()->validate([
             'topic_id' => 'required|numeric|exists:topics,id'
         ]);
 
