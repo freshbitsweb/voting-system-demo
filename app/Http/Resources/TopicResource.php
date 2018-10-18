@@ -17,7 +17,7 @@ class TopicResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'votes' => VoteResource::collection($this->whenLoaded('votes')),
+            'voters' => $this->whenLoaded('votes')->pluck('id')->toArray(),
             'user' => new UserResource($this->whenLoaded('user')),
         ];
     }

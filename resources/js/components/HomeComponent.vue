@@ -13,7 +13,7 @@
                                 <ul class="todo-list">
                                     <li class="todo"
                                         v-for="(topic, index) in sortedTopics"
-                                        v-bind:class="{ voted: isVoted(topic.votes) }"
+                                        v-bind:class="{ voted: isVoted(topic.voters) }"
                                     >
                                         <div class="view">
                                             <label>
@@ -26,13 +26,13 @@
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
                                                 @click="addVoteToTopic(topic.id, index)"
-                                                v-if="! isVoted(topic.votes)"
+                                                v-if="! isVoted(topic.voters)"
                                             >
                                                 Vote
                                             </button>
 
                                             <span class="badge badge-sm badge-secondary votes-counter">
-                                                {{ topic.votes.length }}
+                                                {{ topic.voters.length }}
                                             </span>
                                         </div>
                                     </li>
@@ -67,10 +67,8 @@
         },
 
         methods: {
-            isVoted: function (votes) {
-                return votes.filter(function(vote) {
-                    return vote.user_id == loggedInUserId;
-                }).length;
+            isVoted: function (voters) {
+                return voters.includes(loggedInUserId);
             },
 
             addVoteToTopic: function (topicId, index) {
@@ -125,7 +123,7 @@
         computed: {
             sortedTopics: function() {
                 return this.topics.sort(function(firstTopic, secondTopic) {
-                    return secondTopic.votes.length - firstTopic.votes.length;
+                    return secondTopic.voters.length - firstTopic.voters.length;
                 });
             }
         }
