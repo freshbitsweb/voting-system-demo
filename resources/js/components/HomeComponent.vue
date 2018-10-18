@@ -25,7 +25,7 @@
 
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
-                                                @click="addVoteToTopic(topic.id, index)"
+                                                @click="addVoteToTopic(topic.topic_id, index)"
                                                 v-if="! isVoted(topic.votes)"
                                             >
                                                 Vote
@@ -69,7 +69,7 @@
         methods: {
             isVoted: function (votes) {
                 return votes.filter(function(vote) {
-                    return vote.id == loggedInUserId;
+                    return vote.user_id == loggedInUserId;
                 }).length;
             },
 
