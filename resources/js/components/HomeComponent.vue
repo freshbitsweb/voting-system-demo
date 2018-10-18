@@ -76,7 +76,7 @@
             addVoteToTopic: function (topicId, index) {
                 var self = this;
 
-                axios.post("/api/vote-to-topic", {
+                axios.post("/api/vote-for-topic", {
                     topic_id: topicId,
                 }).then(function(response) {
                     var topic = response.data.data.topic;
@@ -94,7 +94,7 @@
 
                 var self = this;
 
-                axios.post("/api/create-new-topic", {
+                axios.post("/api/add-new-topic", {
                     title: self.title,
                 }).then(function(response) {
                     var topic = response.data.data.topic;

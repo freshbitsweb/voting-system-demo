@@ -48,7 +48,7 @@ class TopicController extends ApiController
      *
      * @return Json
      **/
-    public function storeTopicVote()
+    public function voteForTopic()
     {
         $validatedData = request()->validate([
             'topic_id' => 'required|numeric|exists:topics,id'
