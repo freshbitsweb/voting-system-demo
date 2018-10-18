@@ -40,7 +40,7 @@ class TopicController extends Controller
         $topic->votes()->attach(request()->user()->id);
 
         return [
-            'topic' => $topic->load('votes', 'user:id,name'),
+            'topic' => new TopicResource($topic->load('votes', 'user:id,name')),
         ];
     }
 
@@ -60,7 +60,7 @@ class TopicController extends Controller
         $topic->votes()->attach(request()->user()->id);
 
         return [
-            'topic' => $topic->load('votes'),
+            'topic' => new TopicResource($topic->load('votes')),
         ];
     }
 }
