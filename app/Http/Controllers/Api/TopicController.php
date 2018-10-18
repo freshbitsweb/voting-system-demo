@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Topic;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\TopicResource;
 
-class TopicController extends Controller
+class TopicController extends ApiController
 {
     /**
      * Returns the list of the topics
