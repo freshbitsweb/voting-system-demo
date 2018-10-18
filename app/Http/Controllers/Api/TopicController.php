@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Topic;
-use App\Http\Controllers\Controller;
+use App\Http\Resources\TopicResource;
 
-class TopicController extends Controller
+class TopicController extends ApiController
 {
     /**
      * Returns the list of the topics
@@ -14,12 +14,11 @@ class TopicController extends Controller
      **/
     public function index()
     {
-        $topics = Topic::getList();
+        $topics = Topic::with(['votes', 'user:id,name'])->get();
 
-        return [
-            'topics' => $topics,
-            'user' => request()->user()
-        ];
+        return $this->respond($data = [
+            'topics' => TopicResource::collection($topics)
+        ]);
     }
 
     /**
@@ -39,9 +38,9 @@ class TopicController extends Controller
 
         $topic->votes()->attach(request()->user()->id);
 
-        return [
-            'topic' => $topic->load('votes', 'user:id,name'),
-        ];
+        return $this->respond($data = [
+            'topic' => new TopicResource($topic->load('votes', 'user:id,name'))
+        ], $message = "Topic created successfully.");
     }
 
     /**
@@ -59,8 +58,8 @@ class TopicController extends Controller
 
         $topic->votes()->attach(request()->user()->id);
 
-        return [
-            'topic' => $topic->load('votes'),
-        ];
+        return $this->respond($data = [
+            'topic' => new TopicResource($topic->load('votes'))
+        ], $message = "Topic voted successfully.");
     }
 }

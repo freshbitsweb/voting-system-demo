@@ -25,7 +25,7 @@
 
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
-                                                @click="addVoteToTopic(topic.id, index)"
+                                                @click="addVoteToTopic(topic.topic_id, index)"
                                                 v-if="! isVoted(topic.votes)"
                                             >
                                                 Vote
@@ -69,7 +69,7 @@
         methods: {
             isVoted: function (votes) {
                 return votes.filter(function(vote) {
-                    return vote.id == loggedInUserId;
+                    return vote.user_id == loggedInUserId;
                 }).length;
             },
 
@@ -79,7 +79,7 @@
                 axios.post("/api/vote-to-topic", {
                     topic_id: topicId,
                 }).then(function(response) {
-                    var topic = response.data.topic;
+                    var topic = response.data.data.topic;
 
                     self.topics.splice(index, 1, topic);
                 }).catch(function(error) {
@@ -97,7 +97,7 @@
                 axios.post("/api/create-new-topic", {
                     title: self.title,
                 }).then(function(response) {
-                    var topic = response.data.topic;
+                    var topic = response.data.data.topic;
                     self.topics.push(topic);
                     self.title = '';
                 }).catch(function(error) {
@@ -116,7 +116,7 @@
 
             axios.get("/api/get-topics")
             .then(function(response) {
-                self.topics = response.data.topics;
+                self.topics = response.data.data.topics;
             }).catch(function(error) {
                 console.log(error);
             });
