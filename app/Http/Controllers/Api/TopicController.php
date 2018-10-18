@@ -11,7 +11,7 @@ class TopicController extends Controller
     /**
      * Returns the list of the topics
      *
-     * @return Json
+     * @return json
      **/
     public function index()
     {
@@ -25,7 +25,7 @@ class TopicController extends Controller
     /**
      * Create new topic
      *
-     * @return Json
+     * @return json
      **/
     public function store()
     {
@@ -47,7 +47,7 @@ class TopicController extends Controller
     /**
      * Add new vote to the topic
      *
-     * @return Json
+     * @return json
      **/
     public function voteForTopic()
     {
