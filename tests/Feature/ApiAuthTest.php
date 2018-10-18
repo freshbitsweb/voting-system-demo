@@ -14,7 +14,7 @@ class ApiAuthTest extends TestCase
     /**
      * @test
      */
-    public function endpoint_cannot_be_accessed_without_token()
+    public function endpoint_cannot_be_accessed_without_a_token()
     {
         $response = $this->json('GET', 'api/get-topics');
         $response->assertStatus(401);
@@ -48,6 +48,6 @@ class ApiAuthTest extends TestCase
             'Authorization' => 'Bearer ' . $token,
         ])->json('GET', 'api/get-topics');
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 }
