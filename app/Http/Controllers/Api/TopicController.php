@@ -16,9 +16,9 @@ class TopicController extends ApiController
     {
         $topics = Topic::with(['votes', 'user:id,name'])->get();
 
-        return [
-            'topics' => TopicResource::collection($topics),
-        ];
+        return $this->respond($data = [
+            'topics' => TopicResource::collection($topics)
+        ]);
     }
 
     /**
@@ -38,9 +38,9 @@ class TopicController extends ApiController
 
         $topic->votes()->attach(request()->user()->id);
 
-        return [
-            'topic' => new TopicResource($topic->load('votes', 'user:id,name')),
-        ];
+        return $this->respond($data = [
+            'topic' => new TopicResource($topic->load('votes', 'user:id,name'))
+        ], $message = "Topic created successfully.");
     }
 
     /**
@@ -58,8 +58,8 @@ class TopicController extends ApiController
 
         $topic->votes()->attach(request()->user()->id);
 
-        return [
-            'topic' => new TopicResource($topic->load('votes')),
-        ];
+        return $this->respond($data = [
+            'topic' => new TopicResource($topic->load('votes'))
+        ], $message = "Topic voted successfully.");
     }
 }
