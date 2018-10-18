@@ -13,7 +13,7 @@
                                 <ul class="todo-list">
                                     <li class="todo"
                                         v-for="(topic, index) in sortedTopics"
-                                        v-bind:class="{ voted: isVoted(topic.votes) }"
+                                        v-bind:class="{ voted: hasVoted(topic.voters) }"
                                     >
                                         <div class="view">
                                             <label>
@@ -25,14 +25,14 @@
 
                                             <button
                                                 class="btn btn-sm add-vote-button btn-outline-success"
-                                                @click="addVoteToTopic(topic.topic_id, index)"
-                                                v-if="! isVoted(topic.votes)"
+                                                @click="addVoteToTopic(topic.id, index)"
+                                                v-if="! hasVoted(topic.voters)"
                                             >
                                                 Vote
                                             </button>
 
                                             <span class="badge badge-sm badge-secondary votes-counter">
-                                                {{ topic.votes.length }}
+                                                {{ topic.voters.length }}
                                             </span>
                                         </div>
                                     </li>
@@ -67,16 +67,14 @@
         },
 
         methods: {
-            isVoted: function (votes) {
-                return votes.filter(function(vote) {
-                    return vote.user_id == loggedInUserId;
-                }).length;
+            hasVoted: function (voters) {
+                return voters.includes(loggedInUserId);
             },
 
             addVoteToTopic: function (topicId, index) {
                 var self = this;
 
-                axios.post("/api/vote-to-topic", {
+                axios.post("/api/vote-for-topic", {
                     topic_id: topicId,
                 }).then(function(response) {
                     var topic = response.data.data.topic;
@@ -94,7 +92,7 @@
 
                 var self = this;
 
-                axios.post("/api/create-new-topic", {
+                axios.post("/api/add-new-topic", {
                     title: self.title,
                 }).then(function(response) {
                     var topic = response.data.data.topic;
@@ -125,7 +123,7 @@
         computed: {
             sortedTopics: function() {
                 return this.topics.sort(function(firstTopic, secondTopic) {
-                    return secondTopic.votes.length - firstTopic.votes.length;
+                    return secondTopic.voters.length - firstTopic.voters.length;
                 });
             }
         }
@@ -142,7 +140,7 @@
     }
     .new-todo {
         position: relative;
-        margin-top: 10%;
+        margin: 0;
         width: 100%;
         font-size: 24px;
         font-family: inherit;
@@ -157,6 +155,10 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         outline: unset;
+        padding: 16px 16px 16px 60px;
+        border: none;
+        background: rgba(0, 0, 0, 0.003);
+        box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
     }
 
     .todoapp input::-webkit-input-placeholder {
@@ -185,13 +187,6 @@
         -webkit-text-rendering: optimizeLegibility;
         -moz-text-rendering: optimizeLegibility;
         text-rendering: optimizeLegibility;
-    }
-
-    .new-todo {
-        padding: 16px 16px 16px 60px;
-        border: none;
-        background: rgba(0, 0, 0, 0.003);
-        box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
     }
 
     .main {

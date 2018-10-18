@@ -7,19 +7,19 @@ use App\Http\Controllers\Controller;
 class ApiController extends Controller
 {
     /**
-     * Respond with success
+     * Responds to api request with the standard format.
      *
-     * @param array $data
-     * @param int $status
-     * @param string $message
-     * @return Json
+     * @param string Message of the action
+     * @param array Data to be returned
+     * @param int HTTP status code (optional)
+     * @return json
      **/
-    public function respond($data, $message = "success", $status = 200)
+    public function respond($message, $data, $statusCode = 200)
     {
         return response()->json([
+            'success' => true,
             'data' => $data,
-            'status' => $status,
             'message' => $message
-        ]);
+        ], $statusCode);
     }
 }

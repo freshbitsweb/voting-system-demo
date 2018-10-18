@@ -15,9 +15,9 @@ class TopicResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'topic_id' => $this->id,
+            'id' => $this->id,
             'title' => $this->title,
-            'votes' => VoteResource::collection($this->whenLoaded('votes')),
+            'voters' => $this->whenLoaded('votes')->pluck('id')->toArray(),
             'user' => new UserResource($this->whenLoaded('user')),
         ];
     }

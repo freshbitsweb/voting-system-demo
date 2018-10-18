@@ -16,7 +16,7 @@ class TopicController extends ApiController
     {
         $topics = Topic::with(['votes', 'user:id,name'])->get();
 
-        return $this->respond($data = [
+        return $this->respond("List of Topics", [
             'topics' => TopicResource::collection($topics)
         ]);
     }
@@ -38,9 +38,9 @@ class TopicController extends ApiController
 
         $topic->votes()->attach(request()->user()->id);
 
-        return $this->respond($data = [
+        return $this->respond("Topic added successfully.", [
             'topic' => new TopicResource($topic->load('votes', 'user:id,name'))
-        ], $message = "Topic created successfully.");
+        ]);
     }
 
     /**
@@ -48,7 +48,7 @@ class TopicController extends ApiController
      *
      * @return Json
      **/
-    public function storeTopicVote()
+    public function voteForTopic()
     {
         $validatedData = request()->validate([
             'topic_id' => 'required|numeric|exists:topics,id'
@@ -58,8 +58,8 @@ class TopicController extends ApiController
 
         $topic->votes()->attach(request()->user()->id);
 
-        return $this->respond($data = [
+        return $this->respond("Voted for the topic successfully.", [
             'topic' => new TopicResource($topic->load('votes'))
-        ], $message = "Topic voted successfully.");
+        ]);
     }
 }
