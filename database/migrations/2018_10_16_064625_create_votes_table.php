@@ -18,6 +18,7 @@ class CreateVotesTable extends Migration
             $table->integer('user_id')->unsigned()->index();
 
             $table->foreign('topic_id')->references('id')->on('topics');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
