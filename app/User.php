@@ -29,10 +29,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the topics that the user has votes for.
+     * Get the topics that the user has voted for.
      */
     public function topics()
     {
-        return $this->hasMany('App\Topic');
+        return $this->belongsToMany('App\Topic');
     }
 }
