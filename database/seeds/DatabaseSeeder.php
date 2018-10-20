@@ -35,13 +35,10 @@ class DatabaseSeeder extends Seeder
         return [
             'Package Development',
             'Performant Laravel',
-            'In-depth Authentication',
-            'Headache-free Deployments',
             'API development',
-            'Queues & Jobs',
             'Testing in Laravel',
-            'Advanced Eloquent',
-            'Vue.JS',
+            'Laravel Design patterns',
+            'Solid principles of programming',
         ];
     }
 }
